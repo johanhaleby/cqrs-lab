@@ -6,7 +6,7 @@ import com.jayway.cqrs.sample.command.CreateGame;
 import com.jayway.cqrs.sample.domain.GameAggregate;
 import com.jayway.cqrs.sample.event.GameCreated;
 import com.jayway.cqrs.sample.infrastructure.EventStore;
-import com.jayway.cqrs.sample.infrastructure.EventStoreImpl;
+import com.jayway.cqrs.sample.infrastructure.InMemoryEventStore;
 import com.jayway.cqrs.sample.infrastructure.EventStream;
 import org.junit.Test;
 
@@ -21,7 +21,7 @@ public class ApplicationServiceTest {
     @Test public void
     _() throws Exception {
         // Given
-        final EventStore eventStore = new EventStoreImpl();
+        final EventStore eventStore = new InMemoryEventStore();
         final ApplicationService applicationService = new ApplicationServiceImpl(eventStore, GameAggregate.class);
         final UUID id = UUID.randomUUID();
 
@@ -40,7 +40,7 @@ public class ApplicationServiceTest {
         // Given
         final CyclicBarrier cyclicBarrier = new CyclicBarrier(2);
 
-        final EventStore eventStore = new EventStoreImpl();
+        final EventStore eventStore = new InMemoryEventStore();
         final ApplicationService applicationService = new ApplicationServiceImpl(eventStore, GameAggregate.class);
         final UUID id = UUID.randomUUID();
 

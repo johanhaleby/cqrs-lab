@@ -4,7 +4,7 @@ import com.jayway.cqrs.sample.event.Event;
 
 import java.util.*;
 
-public class EventStoreImpl implements EventStore {
+public class InMemoryEventStore implements EventStore {
 
     private Map<UUID, EventStream> eventStreams = new HashMap<UUID, EventStream>();
 

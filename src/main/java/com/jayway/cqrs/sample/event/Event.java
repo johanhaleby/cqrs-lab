@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public abstract class Event {
 
-    protected final UUID id;
+    public final UUID id;
 
     public Event(UUID id) {
         this.id = id;
