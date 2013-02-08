@@ -1,9 +1,15 @@
 package com.jayway.cqrs.sample.event;
 
-import java.util.UUID;
+import com.jayway.cqrs.sample.command.GameId;
+import com.jayway.cqrs.sample.domain.PlayerId;
 
 public class GameStarted extends Event {
-    public GameStarted(UUID id) {
-        super(id);
+
+    public final PlayerId playerId;
+
+    public GameStarted(GameId gameId, PlayerId playerId) {
+        super(gameId.id);
+        this.playerId = playerId;
     }
+
 }

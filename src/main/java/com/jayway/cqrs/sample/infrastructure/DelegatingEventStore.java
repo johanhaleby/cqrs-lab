@@ -25,9 +25,8 @@ public class DelegatingEventStore implements EventStore {
     public synchronized void store(UUID streamId, long version, List<Event> events) {
         eventStore.store(streamId, version, events);
 
-        final EventStream eventStream = loadEventStream(streamId);
         for (EventListener eventListener : eventListeners) {
-            eventListener.receive(eventStream);
+            eventListener.receive(events);
         }
     }
 }

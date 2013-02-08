@@ -3,7 +3,9 @@ package com.jayway.cqrs.sample;
 import com.jayway.cqrs.sample.application.ApplicationService;
 import com.jayway.cqrs.sample.application.ApplicationServiceImpl;
 import com.jayway.cqrs.sample.command.CreateGame;
+import com.jayway.cqrs.sample.command.GameId;
 import com.jayway.cqrs.sample.domain.GameAggregate;
+import com.jayway.cqrs.sample.domain.PlayerId;
 import com.jayway.cqrs.sample.infrastructure.DelegatingEventStore;
 import com.jayway.cqrs.sample.infrastructure.EventStore;
 import com.jayway.cqrs.sample.infrastructure.InMemoryEventStore;
@@ -24,12 +26,13 @@ public class OpenGamesProjectionTest {
         final EventStore eventStore = new DelegatingEventStore(new InMemoryEventStore(), openGamesProjection);
 
         final ApplicationService applicationService = new ApplicationServiceImpl(eventStore, GameAggregate.class);
-        final UUID id = UUID.randomUUID();
+        final GameId id = new GameId(UUID.randomUUID());
+        final PlayerId playerId = new PlayerId(UUID.randomUUID());
 
         // When
-        applicationService.handle(new CreateGame(id));
+        applicationService.handle(new CreateGame(id, playerId));
 
         // Then
-        assertThat(openGamesProjection.getOpenGames()).containsOnly(new OpenGamesProjection.OpenGame(id));
+        assertThat(openGamesProjection.getOpenGames()).containsOnly(new OpenGamesProjection.OpenGame(id.id));
     }
 }
