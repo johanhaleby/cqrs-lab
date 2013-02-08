@@ -5,6 +5,7 @@ import com.jayway.cqrs.sample.event.GameAborted;
 import com.jayway.cqrs.sample.event.GameCreated;
 import com.jayway.cqrs.sample.event.GameWon;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -23,10 +24,14 @@ public class OpenGamesProjection implements EventListener {
         }
     }
 
-    private static class OpenGame {
+    public Set<OpenGame> getOpenGames() {
+        return Collections.unmodifiableSet(openGames);
+    }
+
+    public static class OpenGame {
         private final UUID id;
 
-        private OpenGame(UUID id) {
+        public OpenGame(UUID id) {
             this.id = id;
         }
 
